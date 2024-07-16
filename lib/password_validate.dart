@@ -109,126 +109,30 @@ class _PasswordValidateState extends State<PasswordValidate> {
             SizedBox(
               height: 30,
             ),
-            Row(
-              children: [
-                AnimatedContainer(
-                  duration: Duration(milliseconds: 500),
-                  width: 20,
-                  height: 20,
-                  decoration: BoxDecoration(
-                    color: _isPasswordEightCharacters
-                        ? Colors.green
-                        : Colors.transparent,
-                    border: _isPasswordEightCharacters
-                        ? Border.all(color: Colors.transparent)
-                        : Border.all(color: Colors.grey.shade400),
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  child: Center(
-                    child: Icon(
-                      Icons.check,
-                      color: Colors.white,
-                      size: 15,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Text('Contains at least 8 characters'),
-              ],
+            validation_checkList(
+              text: 'Contains at least 8 characters',
+              isValid: _isPasswordEightCharacters,
             ),
             SizedBox(
               height: 10,
             ),
-            Row(
-              children: [
-                AnimatedContainer(
-                  duration: Duration(milliseconds: 500),
-                  width: 20,
-                  height: 20,
-                  decoration: BoxDecoration(
-                    color: _hasPasswordOneNumber
-                        ? Colors.green
-                        : Colors.transparent,
-                    border: _hasPasswordOneNumber
-                        ? Border.all(color: Colors.transparent)
-                        : Border.all(color: Colors.grey.shade400),
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  child: Center(
-                    child: Icon(
-                      Icons.check,
-                      color: Colors.white,
-                      size: 15,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Text('Contains at least 1 number'),
-              ],
+            validation_checkList(
+              text: 'Contains at least 1 number',
+              isValid: _hasPasswordOneNumber,
             ),
             SizedBox(
               height: 10,
             ),
-            Row(
-              children: [
-                AnimatedContainer(
-                  duration: Duration(milliseconds: 500),
-                  width: 20,
-                  height: 20,
-                  decoration: BoxDecoration(
-                    color: _hasUpperCase ? Colors.green : Colors.transparent,
-                    border: _hasUpperCase
-                        ? Border.all(color: Colors.transparent)
-                        : Border.all(color: Colors.grey.shade400),
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  child: Center(
-                    child: Icon(
-                      Icons.check,
-                      color: Colors.white,
-                      size: 15,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Text('Contains at least 1 uppercase letter'),
-              ],
+            validation_checkList(
+              text: 'Contains at least 1 lowercase letter',
+              isValid: _hasUpperCase,
             ),
             SizedBox(
               height: 10,
             ),
-            Row(
-              children: [
-                AnimatedContainer(
-                  duration: Duration(milliseconds: 500),
-                  width: 20,
-                  height: 20,
-                  decoration: BoxDecoration(
-                    color: _hasLowerCase ? Colors.green : Colors.transparent,
-                    border: _hasLowerCase
-                        ? Border.all(color: Colors.transparent)
-                        : Border.all(color: Colors.grey.shade400),
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  child: Center(
-                    child: Icon(
-                      Icons.check,
-                      color: Colors.white,
-                      size: 15,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Text('Contains at least 1 lowercase letter'),
-              ],
+            validation_checkList(
+              text: 'Contains at least 1 lowercase letter',
+              isValid: _hasLowerCase,
             ),
             SizedBox(
               height: 50,
@@ -249,6 +153,48 @@ class _PasswordValidateState extends State<PasswordValidate> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class validation_checkList extends StatelessWidget {
+  const validation_checkList({
+    super.key,
+    required this.text,
+    required this.isValid,
+  });
+
+  final bool isValid;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        AnimatedContainer(
+          duration: Duration(milliseconds: 500),
+          width: 20,
+          height: 20,
+          decoration: BoxDecoration(
+            color: isValid ? Colors.green : Colors.red,
+            border: isValid
+                ? Border.all(color: Colors.transparent)
+                : Border.all(color: Colors.red),
+            borderRadius: BorderRadius.circular(50),
+          ),
+          child: Center(
+            child: Icon(
+              isValid ? Icons.check : Icons.close,
+              color: Colors.white,
+              size: 15,
+            ),
+          ),
+        ),
+        SizedBox(
+          width: 10,
+        ),
+        Text(text),
+      ],
     );
   }
 }
